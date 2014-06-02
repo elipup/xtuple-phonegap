@@ -1,0 +1,6 @@
+platforms/*
+!platforms/README
+plugins/*
+!plugins/README
+merges/*
+!merges/README

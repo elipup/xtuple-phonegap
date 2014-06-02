@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>xTuple Login</title>
+    <link rel="shortcut icon" href="login/assets/favicon.ico" />
+    <!-- -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="login/stylesheets/screen.css" />
+  </head>
+  <body>
+
+  <!--  Why is this here and not in the head?
+  <style type="text/css" media="all">
+  <% include login/stylesheets/screen.css %>
+  </style> -->
+
+  <section id="login">
+    <header id="header">
+      <img draggable="false" id="header_image" src="login/assets/logo.png">
+    </header>
+    <section id="main">
+      <div style="transform: translateZ(0px); opacity: 1;" id="form-fields">
+        <form name="loginForm" action="https://10.0.2.2:8443/login" onsubmit="store();" method="post">
+          <div class="login-label" id="form-fields_idLabel">Username</div>
+          <input class="login-input" id="form-fields_id" name="id" placeholder="Username">
+		<input class="login-input" id="form-remember_username" type="checkbox">Remember Username
+          <div class="login-label" id="form-fields_passwordLabel">Password</div>
+          <input class="login-input" id="form-fields_password" placeholder="Password" name="password" type="password">
+		<input class="login-input" id="form-remember_password" type="checkbox">Store Password
+          <div class="login-label" id="form-fields_databaseLabel">Database</div>
+          <select class="login-input" id="form-fields_database" name="database">
+          <!-- <% for(var i = 0; i < databases.length; i++) { %>
+            <option value="<%= databases[i] %>"><%= databases[i] %></option>
+          <% } %> -->
+		  <option value="dev">dev</option>
+          </select>
+          <input class="enyo-unselectable login-button" name="submit"
+            id="form-fields_loginButton" type="submit" value="Sign In"/>
+        </form>
+      </div>
+      <a href="forgot-password" class="forgot-password">Forgot password?</a>
+    </section>
+    <!-- <% for(var i = 0; i < message.length; i++) { %>
+      <label class="login-message-box error"><%= message[i] %></label>
+    <% } %> -->
+  </section>
+
+  <!-- <div class="footer">
+    <div class="footer-container">
+      <p>
+        Visit the <a href='http://www.xtuple.org/docs/mobile-web-demo-guide'>Mobile Web Demo Guide</a>,
+        or send email to <a href='mailto:demo@xtuple.com'>demo@xtuple.com</a> for help.
+      </p>
+
+      <p>
+        This MOBILE WEB CLIENT provides access the CRM, Project and Sales modules of xTuple.
+        You must use the DESKTOP CLIENT to access the full application, including CRM, Projects, Sales, Purchasing, Inventory, Manufacturing, Scheduling and Accounting modules.
+      </p>
+
+      <p>
+        Download the xTuple Desktop client here: <a href=''>Windows</a>,
+        <a href=''>Mac</a>, <a href=''>Linux</a>
+      </p>
+
+      <p>v1.4.5</p>
+    </div>
+  </div> -->
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script>
+    document.loginForm.id.focus();
+    
+    var username = localStorage.getItem("username");
+    if (username !== null) {
+      document.getElementById("form-fields_id").value = username;
+	 
+	 var remember_username = localStorage.getItem("remember_username");
+	 if (remember_username !== null) {
+	   document.getElementById("form-remember_username").checked = true;
+	 }
+    
+      var password = localStorage.getItem("password");
+      if (password !== null && username !== null) {
+        document.getElementById("form-fields_password").value = password;
+	   
+	   var remember_password = localStorage.getItem("remember_password");
+	   if (remember_password !== null) {
+	     document.getElementById("form-remember_password").checked = true;
+	   }
+      }
+    }
+    
+    function store() {
+      if (document.getElementById("form-remember_username").checked) {
+	   localStorage.setItem("username", document.getElementById("form-fields_id").value);
+	   localStorage.setItem("remember_username", "true");
+	 
+	   if (document.getElementById("form-remember_password").checked) {
+	     localStorage.setItem("password", document.getElementById("form-fields_password").value);
+		localStorage.setItem("remember_password", "true");
+	   } else {
+	     localStorage.removeItem("remember_password");
+	   }
+	 } else {
+	   localStorage.removeItem("remember_username");
+	 }
+    }
+  </script>
+  </body>
+</html>
